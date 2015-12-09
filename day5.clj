@@ -27,5 +27,26 @@
      (-> (filter nice-string? lines)
          count))))
 
+(defn encaps-character? [string]
+  (some? (re-find #"([a-z]).\1" string)))
+
+(defn double-pair? [string]
+  (some? (re-find #"([a-z]{2}).*\1" string)))
+
+(defn nice-string2? [string]
+  (and (encaps-character? string)
+       (double-pair? string)))
+
+(defn count-nice-strings2 []
+  (compute-from-input
+   filename
+   (fn [lines]
+     (-> (filter nice-string2? lines)
+         count))))
+     
+    
 ;; (count-nice-strings)
 ;; --> 236
+
+;; (count-nice-strings2)
+;; --> 51
